@@ -34,12 +34,26 @@ class Engine {
 
   // ---------- Phaser ----------
   mouseInput() {
+    // Checks whether the mouse is down
     let engine = this;
     this.phaser.input.on("pointerdown", function () {
       engine.mouseDown = true;
     });
     this.phaser.input.on("pointerup", function () {
       engine.mouseDown = false;
+    });
+  }
+  addAnimation(name, frameRate, repeat, ...keys) {
+    // Adds a animation
+    let keyArray = [];
+    for (var i = 0; i < keys.length; i++) {
+      keyArray.push({key: keys[i]});
+    }
+    this.phaser.anims.create({
+      key: name,
+      frames: keyArray,
+      frameRate: 5,
+      repeat: repeat ? -1 : 1
     });
   }
 }
