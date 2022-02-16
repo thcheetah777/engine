@@ -7,6 +7,8 @@ class Engine {
   constructor(phaser) {
     this.phaser = phaser;
     this.mouseDown = false;
+    this.gameWidth = this.sys.game.canvas.width;
+    this.gameHeight = this.sys.game.canvas.height;
   }
 
   // ---------- Tools ----------
