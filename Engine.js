@@ -54,7 +54,7 @@ class Engine {
     this.phaser.anims.create({
       key: name,
       frames: keyArray,
-      frameRate: 5,
+      frameRate: frameRate,
       repeat: repeat ? -1 : 1
     });
   }
