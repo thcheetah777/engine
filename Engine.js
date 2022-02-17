@@ -45,7 +45,7 @@ class Engine {
       engine.mouseDown = false;
     });
   }
-  addAnimation(name, frameRate, repeat, ...keys) {
+  addAnimation(name, frameRate, repeat, yoyo, ...keys) {
     // Adds a animation
     let keyArray = [];
     for (var i = 0; i < keys.length; i++) {
@@ -55,7 +55,8 @@ class Engine {
       key: name,
       frames: keyArray,
       frameRate: frameRate,
-      repeat: repeat ? -1 : 1
+      repeat: repeat ? -1 : 0,
+      yoyo: yoyo
     });
   }
 }
