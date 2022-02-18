@@ -60,3 +60,53 @@ class Engine {
     });
   }
 }
+
+// ---------- Common scenes ----------
+class Cutscene extends Phaser.Scene {
+  constructor(key, sprite1, sprite2, vs) {
+    super(key);
+    this.sprite1 = sprite1;
+    this.sprite2 = sprite2;
+    this.vs = vs;
+  }
+  preload() {
+    this.load.image("sprite1", this.sprite1.path);
+    this.load.image("sprite2", this.sprite2.path);
+    this.load.image("vs", this.vs.path);
+  }
+  create() {
+    game.engine = new Engine(this);
+    game.sprite1 = this.physics.add.staticSprite(-128, (game.engine.gameHeight / 2) - 64, this.sprite1.path).setScale(16);
+    game.sprite2 = this.physics.add.staticSprite(game.engine.gameWidth + 128, (game.engine.gameHeight / 2) - 64, this.sprite2.path).setScale(16);
+    game.vs = this.physics.add.staticSprite(game.engine.gameWidth / 2, -128, "vs").setScale(16);
+    game.sprite1.moveTween = this.tweens.add({
+      targets: game.sprite1,
+      x: game.sprite1.x + (game.engine.gameWidth / 2) - (game.engine.gameWidth / 6),
+      ease: "Back.easeInOut",
+      duration: 500,
+      onComplete: () => {
+        game.vs.moveTween.play();
+      }
+    });
+    game.sprite2.moveTween = this.tweens.add({
+      targets: game.sprite2,
+      x: game.sprite2.x - (game.engine.gameWidth / 2) + (game.engine.gameWidth / 6),
+      ease: "Back.easeInOut",
+      duration: 500,
+      paused: true
+    });
+    game.vs.moveTween = this.tweens.add({
+      targets: game.vs,
+      y: game.vs.y + (game.engine.gameHeight / 2) + 64,
+      ease: "Back.easeInOut",
+      duration: 500,
+      paused: true,
+      onComplete: () => {
+        game.sprite2.moveTween.play();
+      }
+    });
+  }
+  update() {
+
+  }
+}
