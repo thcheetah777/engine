@@ -63,11 +63,12 @@ class Engine {
 
 // ---------- Common scenes ----------
 class Cutscene extends Phaser.Scene {
-  constructor(key, sprite1, sprite2, vs) {
+  constructor(key, sprite1, sprite2, vs, nextScene) {
     super(key);
     this.sprite1 = sprite1;
     this.sprite2 = sprite2;
     this.vs = vs;
+    this.nextScene = nextScene;
   }
   preload() {
     this.load.image("sprite1", this.sprite1.path);
@@ -75,6 +76,7 @@ class Cutscene extends Phaser.Scene {
     this.load.image("vs", this.vs.path);
   }
   create() {
+    let phaser = this;
     game.engine = new Engine(this);
     game.sprite1 = this.physics.add.staticSprite(-128, (game.engine.gameHeight / 2) - 64, "sprite1").setScale(16);
     game.sprite2 = this.physics.add.staticSprite(game.engine.gameWidth + 128, (game.engine.gameHeight / 2) - 64, "sprite2").setScale(16);
@@ -104,6 +106,9 @@ class Cutscene extends Phaser.Scene {
       onComplete: () => {
         game.sprite2.moveTween.play();
       }
+    });
+    this.input.on("pointerdown", () => {
+      phaser.scene.start(this.nextScene);
     });
   }
   update() {
