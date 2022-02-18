@@ -76,8 +76,8 @@ class Cutscene extends Phaser.Scene {
   }
   create() {
     game.engine = new Engine(this);
-    game.sprite1 = this.physics.add.staticSprite(-128, (game.engine.gameHeight / 2) - 64, this.sprite1.path).setScale(16);
-    game.sprite2 = this.physics.add.staticSprite(game.engine.gameWidth + 128, (game.engine.gameHeight / 2) - 64, this.sprite2.path).setScale(16);
+    game.sprite1 = this.physics.add.staticSprite(-128, (game.engine.gameHeight / 2) - 64, "sprite1").setScale(16);
+    game.sprite2 = this.physics.add.staticSprite(game.engine.gameWidth + 128, (game.engine.gameHeight / 2) - 64, "sprite2").setScale(16);
     game.vs = this.physics.add.staticSprite(game.engine.gameWidth / 2, -128, "vs").setScale(16);
     game.sprite1.moveTween = this.tweens.add({
       targets: game.sprite1,
