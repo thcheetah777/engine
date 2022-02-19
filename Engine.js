@@ -65,35 +65,35 @@ class Engine {
 class Cutscene extends Phaser.Scene {
   constructor(key, sprite1, sprite2, vs, nextScene) {
     super(key);
-    this.sprite1 = sprite1;
-    this.sprite2 = sprite2;
-    this.vs = vs;
+    this.sprite1path = sprite1;
+    this.sprite2path = sprite2;
+    this.vspath = vs;
     this.nextScene = nextScene;
     this.complete = false;
   }
   preload() {
-    this.load.image("sprite1", this.sprite1.path);
-    this.load.image("sprite2", this.sprite2.path);
-    this.load.image("vs", this.vs.path);
+    this.load.image(this.sprite1path, this.sprite1path);
+    this.load.image(this.sprite2path, this.sprite2path);
+    this.load.image(this.vspath, this.vspath);
   }
   create() {
     let phaser = this;
-    game.engine = new Engine(this);
-    game.sprite1 = this.physics.add.staticSprite(-128, (game.engine.gameHeight / 2) - 64, "sprite1").setScale(16);
-    game.sprite2 = this.physics.add.staticSprite(game.engine.gameWidth + 128, (game.engine.gameHeight / 2) - 64, "sprite2").setScale(16);
-    game.vs = this.physics.add.staticSprite(game.engine.gameWidth / 2, -128, "vs").setScale(16);
-    game.sprite1.moveTween = this.tweens.add({
-      targets: game.sprite1,
-      x: game.sprite1.x + (game.engine.gameWidth / 2) - (game.engine.gameWidth / 6),
+    this.engine = new Engine(this);
+    this.sprite1 = this.physics.add.staticSprite(-128, (this.engine.gameHeight / 2) - 64, this.sprite1path).setScale(16);
+    this.sprite2 = this.physics.add.staticSprite(this.engine.gameWidth + 128, (this.engine.gameHeight / 2) - 64, this.sprite2path).setScale(16);
+    this.vs = this.physics.add.staticSprite(this.engine.gameWidth / 2, -128, this.vspath).setScale(16);
+    this.sprite1.moveTween = this.tweens.add({
+      targets: this.sprite1,
+      x: this.sprite1.x + (this.engine.gameWidth / 2) - (this.engine.gameWidth / 6),
       ease: "Back.easeInOut",
       duration: 500,
       onComplete: () => {
-        game.vs.moveTween.play();
+        this.vs.moveTween.play();
       }
     });
-    game.sprite2.moveTween = this.tweens.add({
-      targets: game.sprite2,
-      x: game.sprite2.x - (game.engine.gameWidth / 2) + (game.engine.gameWidth / 6),
+    this.sprite2.moveTween = this.tweens.add({
+      targets: this.sprite2,
+      x: this.sprite2.x - (this.engine.gameWidth / 2) + (this.engine.gameWidth / 6),
       ease: "Back.easeInOut",
       duration: 500,
       paused: true,
@@ -101,18 +101,20 @@ class Cutscene extends Phaser.Scene {
         this.complete = true;
       }
     });
-    game.vs.moveTween = this.tweens.add({
-      targets: game.vs,
-      y: game.vs.y + (game.engine.gameHeight / 2) + 64,
+    this.vs.moveTween = this.tweens.add({
+      targets: this.vs,
+      y: this.vs.y + (this.engine.gameHeight / 2) + 64,
       ease: "Back.easeInOut",
       duration: 500,
       paused: true,
       onComplete: () => {
-        game.sprite2.moveTween.play();
+        this.sprite2.moveTween.play();
       }
     });
     this.input.on("pointerdown", () => {
       if (this.complete) {
+        this.complete = false;
+        phaser.scene.stop();
         phaser.scene.start(this.nextScene);
       }
     });
