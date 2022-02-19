@@ -69,6 +69,7 @@ class Cutscene extends Phaser.Scene {
     this.sprite2 = sprite2;
     this.vs = vs;
     this.nextScene = nextScene;
+    this.complete = false;
   }
   preload() {
     this.load.image("sprite1", this.sprite1.path);
@@ -95,7 +96,10 @@ class Cutscene extends Phaser.Scene {
       x: game.sprite2.x - (game.engine.gameWidth / 2) + (game.engine.gameWidth / 6),
       ease: "Back.easeInOut",
       duration: 500,
-      paused: true
+      paused: true,
+      onComplete: () => {
+        this.complete = true;
+      }
     });
     game.vs.moveTween = this.tweens.add({
       targets: game.vs,
@@ -108,7 +112,9 @@ class Cutscene extends Phaser.Scene {
       }
     });
     this.input.on("pointerdown", () => {
-      phaser.scene.start(this.nextScene);
+      if (this.complete) {
+        phaser.scene.start(this.nextScene);
+      }
     });
   }
   update() {
