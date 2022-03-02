@@ -59,6 +59,10 @@ class Engine {
       yoyo: yoyo
     });
   }
+  setBackgroundColor(phaser, hex) {
+    // Sets the background color of the camera
+    phaser.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#ffffff");
+  }
 }
 
 // ---------- Common scenes ----------
