@@ -9,6 +9,8 @@ class Engine {
     this.mouseDown = false;
     this.gameWidth = phaser.sys.game.canvas.width;
     this.gameHeight = phaser.sys.game.canvas.height;
+    this.gameWidthCenter = this.gameWidth / 2;
+    this.gameHeightCenter = this.gameHeight / 2;
   }
 
   // ---------- Tools ----------
