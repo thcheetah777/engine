@@ -47,6 +47,24 @@ class Engine {
       engine.mouseDown = false;
     });
   }
+  pixelCursor() {
+    // Adds a custom pixel cursor
+    // WARNING: Hide the default cursor in the index.html before using this function
+    this.mouseInput();
+    this.cursor = this.phaser.physics.add.sprite(this.phaser.input.mousePointer.x, this.phaser.input.mousePointer.y, "cursor").setScale(8).setGravityY(-1500).setSize(2, 2).setOffset(0, 0).setOrigin(0, 0);
+    this.cursor.setDepth(1);
+    this.input.on("pointerdown", () => {
+      this.cursor.setScale(6.5);
+    });
+    this.input.on("pointerup", () => {
+      this.cursor.setScale(8);
+    });
+  }
+  updatePixelCursor() {
+    // Sets the position of pixel cursor
+    this.cursor.x = this.phaser.input.mousePointer.x;
+    this.cursor.y = this.phaser.input.mousePointer.y;
+  }
   addAnimation(name, frameRate, repeat, yoyo, ...keys) {
     // Adds a animation
     let keyArray = [];
