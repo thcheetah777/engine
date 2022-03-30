@@ -83,6 +83,14 @@ class Engine {
     // Sets the background color of the camera
     phaser.cameras.main.backgroundColor = Phaser.Display.Color.HexStringToColor("#ffffff");
   }
+  setPhaserInterval(callback, time) {
+    // Does the same thing as setInterval, but using Phaser
+    this.phaser.time.addEvent({
+      delay: time,
+      callback: callback,
+      repeat: -1
+    });
+  }
 }
 
 // ---------- Common scenes ----------
