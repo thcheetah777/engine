@@ -53,10 +53,10 @@ class Engine {
     this.mouseInput();
     this.cursor = this.phaser.physics.add.sprite(this.phaser.input.mousePointer.x, this.phaser.input.mousePointer.y, "cursor").setScale(8).setGravityY(-1500).setSize(2, 2).setOffset(0, 0).setOrigin(0, 0);
     this.cursor.setDepth(1);
-    this.input.on("pointerdown", () => {
+    this.phaser.input.on("pointerdown", () => {
       this.cursor.setScale(6.5);
     });
-    this.input.on("pointerup", () => {
+    this.phaser.input.on("pointerup", () => {
       this.cursor.setScale(8);
     });
   }
