@@ -35,6 +35,10 @@ class Engine {
       }
     }
   }
+  randomBool() {
+    // Returns a random boolean, true or false
+    return Boolean(Math.floor(Math.random() * 2));
+  }
 
   // ---------- Phaser ----------
   mouseInput() {
