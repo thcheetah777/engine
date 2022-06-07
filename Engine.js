@@ -95,6 +95,9 @@ class Engine {
       repeat: -1
     });
   }
+  isKeyDown(key) {
+    return this.phaser.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[key]).isDown;
+  }
 }
 
 // ---------- Common scenes ----------
